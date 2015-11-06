@@ -1,9 +1,9 @@
 # Mapbox geocoder client for Android
 
-The official [Mapbox Geocoder](https://www.mapbox.com/developers/api/geocoding) client for Android.
+[Mapbox Geocoder](https://www.mapbox.com/developers/api/geocoding) client for Android.
 
-It's also full drop-in replacement for the standard Android
-[Geocoder](http://developer.android.com/reference/android/location/Geocoder.html) object.
+This library is also a full drop-in replacement for the standard Android
+[Geocoder](http://developer.android.com/reference/android/location/Geocoder.html).
 
 ## Installation
 
@@ -64,7 +64,7 @@ import android.location.Geocoder;
 
 ...
 
-Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+Geocoder geocoder = new Geocoder(context, Locale.getDefault());
 addresses = geocoder.getFromLocation(
 	location.getLatitude(),
 	location.getLongitude(),
@@ -78,7 +78,7 @@ import com.mapbox.geocoder.android.AndroidGeocoder;
 
 ...
 
-AndroidGeocoder geocoder = new AndroidGeocoder(this, Locale.getDefault());
+AndroidGeocoder geocoder = new AndroidGeocoder(context, Locale.getDefault());
 geocoder.setAccessToken(MAPBOX_ACCESS_TOKEN);
 addresses = geocoder.getFromLocation(
 	location.getLatitude(),
@@ -86,7 +86,7 @@ addresses = geocoder.getFromLocation(
 	1);
 ```
 
-You can see the full code for this app in the `samples` folder.
+You can see the full code for this app in the `samples/LocationAddress` folder.
 
 Note that, unlike the Android implementation, we don't have any use for the
 `Context` in the constructor and you can omit it (passing `null`) when
