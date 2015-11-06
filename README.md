@@ -27,7 +27,8 @@ MapboxGeocoder client = new MapboxGeocoder.Builder()
 ```
 
 For reverse geocoding (turning a pair of lat/lon coordinates into a
-meaningful place name) you could do:
+meaningful place name), restricting the results to points of interest (POI)
+you could do:
 
 ```
 MapboxGeocoder client = new MapboxGeocoder.Builder()
