@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "com.google.android.gms.location.sample.locationaddress"
-        minSdkVersion 9
+        minSdkVersion 15
         targetSdkVersion 22
         versionCode 1
         versionName "1.0"
@@ -20,8 +20,13 @@ android {
 }
 
 dependencies {
+    compile project(':geocoder')
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:23.0.1'
     compile 'com.android.support:support-v4:23.0.1'
     compile 'com.google.android.gms:play-services:8.1.0'
+
+    // Retrofit + GSON
+    compile 'com.squareup.retrofit:retrofit:2.0.0-beta2'
+    compile 'com.squareup.retrofit:converter-gson:2.0.0-beta2'
 }

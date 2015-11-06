@@ -17,7 +17,6 @@
 package com.google.android.gms.location.sample.locationaddress;
 
 import android.content.Intent;
-import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
@@ -35,6 +34,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
 import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
 import com.google.android.gms.location.LocationServices;
+import com.mapbox.geocoder.android.AndroidGeocoder;
 
 /**
  * Getting the Location Address.
@@ -201,7 +201,7 @@ public class MainActivity extends ActionBarActivity implements
         mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
         if (mLastLocation != null) {
             // Determine whether a Geocoder is available.
-            if (!Geocoder.isPresent()) {
+            if (!AndroidGeocoder.isPresent()) {
                 Toast.makeText(this, R.string.no_geocoder_available, Toast.LENGTH_LONG).show();
                 return;
             }

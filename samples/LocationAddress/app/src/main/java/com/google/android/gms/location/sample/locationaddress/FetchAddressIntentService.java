@@ -3,12 +3,13 @@ package com.google.android.gms.location.sample.locationaddress;
 import android.app.IntentService;
 import android.content.Intent;
 import android.location.Address;
-import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.ResultReceiver;
 import android.text.TextUtils;
 import android.util.Log;
+
+import com.mapbox.geocoder.android.AndroidGeocoder;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -80,7 +81,8 @@ public class FetchAddressIntentService extends IntentService {
         // Locale, which represents a specific geographical or linguistic region. Locales are used
         // to alter the presentation of information such as numbers or dates to suit the conventions
         // in the region they describe.
-        Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+        AndroidGeocoder geocoder = new AndroidGeocoder(this, Locale.getDefault());
+        geocoder.setAccessToken(Constants.MAPBOX_ACCESS_TOKEN);
 
         // Address found using the Geocoder.
         List<Address> addresses = null;
@@ -126,7 +128,7 @@ public class FetchAddressIntentService extends IntentService {
             // getPostalCode() ("94043", for example)
             // getCountryCode() ("US", for example)
             // getCountryName() ("United States", for example)
-            for(int i = 0; i < address.getMaxAddressLineIndex(); i++) {
+            for(int i = 0; i <= address.getMaxAddressLineIndex(); i++) {
                 addressFragments.add(address.getAddressLine(i));
             }
             Log.i(TAG, getString(R.string.address_found));
