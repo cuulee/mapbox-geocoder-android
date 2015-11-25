@@ -155,6 +155,29 @@ public class AndroidGeocoder {
      */
     public List<Address> getFromLocationName(String locationName, int maxResults) throws IOException {
         List<Address> addresses = new ArrayList<>();
+
+        MapboxGeocoder client = new MapboxGeocoder.Builder()
+                .setAccessToken(_accessToken)
+                .setLocation(locationName)
+                .build();
+
+        Response<GeocoderResponse> response = client.execute();
+        if (!response.isSuccess()) {
+            return addresses;
+        }
+
+        List<GeocoderFeature> features = response.body().getFeatures();
+
+        // Trim the list if needed
+        if (features.size() > maxResults) {
+            features = features.subList(0, maxResults);
+        }
+
+        // Convert from FeatureModel to Address
+        for (GeocoderFeature feature: features) {
+            addresses.add(feature.toAddress(_locale));
+        }
+
         return addresses;
     }
 
@@ -197,6 +220,53 @@ public class AndroidGeocoder {
                                              double lowerLeftLatitude, double lowerLeftLongitude,
                                              double upperRightLatitude, double upperRightLongitude) throws IOException {
         List<Address> addresses = new ArrayList<>();
+
+        // We use the bbox to infer a proximity location
+        double proximityLatitude = (lowerLeftLatitude + upperRightLatitude) / 2.0;
+        double proximityLongitude = (lowerLeftLongitude + upperRightLongitude) / 2.0;
+
+        MapboxGeocoder client = new MapboxGeocoder.Builder()
+                .setAccessToken(_accessToken)
+                .setLocation(locationName)
+                .setProximity(proximityLongitude, proximityLatitude)
+                .build();
+
+        Response<GeocoderResponse> response = client.execute();
+        if (!response.isSuccess()) {
+            return addresses;
+        }
+
+        List<GeocoderFeature> features = response.body().getFeatures();
+
+        // Find results not contained within the bbox
+        List<GeocoderFeature> featuresToRemove = new ArrayList<>();
+        for (GeocoderFeature feature: features) {
+            if (feature.getLatitude() < lowerLeftLatitude) {
+                featuresToRemove.add(feature);
+            } else if (feature.getLatitude() > upperRightLatitude) {
+                featuresToRemove.add(feature);
+            } else if (feature.getLongitude() < lowerLeftLongitude) {
+                featuresToRemove.add(feature);
+            } else if (feature.getLongitude() > upperRightLongitude) {
+                featuresToRemove.add(feature);
+            }
+        }
+
+        // Remove features outside the bbox
+        if (featuresToRemove.size() > 0) {
+            features.removeAll(featuresToRemove);
+        }
+
+        // Trim the list if needed
+        if (features.size() > maxResults) {
+            features = features.subList(0, maxResults);
+        }
+
+        // Convert from FeatureModel to Address
+        for (GeocoderFeature feature: features) {
+            addresses.add(feature.toAddress(_locale));
+        }
+
         return addresses;
     }
 
