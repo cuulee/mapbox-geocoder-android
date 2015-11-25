@@ -13,15 +13,15 @@ import java.util.Locale;
  */
 public class GeocoderFeature {
 
-    public String id;
-    public String type;
-    public String text;
-    @SerializedName("place_name") public String placeName;
-    public double relevance;
-    public List<Double> bbox;
-    public List<Double> center;
-    public FeatureGeometry geometry;
-    public List<FeatureContext> context;
+    private String id;
+    private String type;
+    private String text;
+    @SerializedName("place_name") private String placeName;
+    private double relevance;
+    private List<Double> bbox;
+    private List<Double> center;
+    private FeatureGeometry geometry;
+    private List<FeatureContext> context;
 
     /*
      * We leave properties as a generic object because at this moment Carmen makes no
@@ -32,49 +32,89 @@ public class GeocoderFeature {
     public Object properties;
 
     public GeocoderFeature() {
-        bbox = new ArrayList<>();
-        center = new ArrayList<>();
-        context = new ArrayList<>();
+        this.bbox = new ArrayList<>();
+        this.center = new ArrayList<>();
+        this.context = new ArrayList<>();
     }
 
     public String getId() {
-        return id;
+        return this.id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getType() {
-        return type;
+        return this.type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getText() {
-        return text;
+        return this.text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
     }
 
     public String getPlaceName() {
-        return placeName;
+        return this.placeName;
+    }
+
+    public void setPlaceName(String placeName) {
+        this.placeName = placeName;
     }
 
     public double getRelevance() {
-        return relevance;
+        return this.relevance;
     }
 
-    public Object getProperties() {
-        return properties;
+    public void setRelevance(double relevance) {
+        this.relevance = relevance;
     }
 
     public List<Double> getBbox() {
-        return bbox;
+        return this.bbox;
+    }
+
+    public void setBbox(List<Double> bbox) {
+        this.bbox = bbox;
     }
 
     public List<Double> getCenter() {
-        return center;
+        return this.center;
+    }
+
+    public void setCenter(List<Double> center) {
+        this.center = center;
     }
 
     public FeatureGeometry getGeometry() {
-        return geometry;
+        return this.geometry;
+    }
+
+    public void setGeometry(FeatureGeometry geometry) {
+        this.geometry = geometry;
     }
 
     public List<FeatureContext> getContext() {
-        return context;
+        return this.context;
+    }
+
+    public void setContext(List<FeatureContext> context) {
+        this.context = context;
+    }
+
+    public Object getProperties() {
+        return this.properties;
+    }
+
+    public void setProperties(Object properties) {
+        this.properties = properties;
     }
 
     /*

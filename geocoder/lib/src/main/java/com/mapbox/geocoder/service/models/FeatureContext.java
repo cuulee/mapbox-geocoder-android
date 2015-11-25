@@ -5,15 +5,22 @@ package com.mapbox.geocoder.service.models;
  */
 public class FeatureContext {
 
-    public String id;
-    public String text;
+    private String id;
+    private String text;
 
     public String getId() {
-        return id;
+        return this.id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getText() {
-        return text;
+        return this.text;
     }
 
+    public void setText(String text) {
+        this.text = text;
+    }
 }

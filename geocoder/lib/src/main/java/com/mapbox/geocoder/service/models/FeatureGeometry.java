@@ -8,19 +8,26 @@ import java.util.List;
  */
 public class FeatureGeometry {
 
-    public String type;
-    public List<Double> coordinates;
+    private String type;
+    private List<Double> coordinates;
 
     public FeatureGeometry() {
-        coordinates = new ArrayList<>();
+        this.coordinates = new ArrayList<>();
     }
 
     public String getType() {
-        return type;
+        return this.type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public List<Double> getCoordinates() {
-        return coordinates;
+        return this.coordinates;
     }
 
+    public void setCoordinates(List<Double> coordinates) {
+        this.coordinates = coordinates;
+    }
 }
