@@ -21,7 +21,7 @@ For example, to do forward geocoding with proximity you could do the following:
 ```
 MapboxGeocoder client = new MapboxGeocoder.Builder()
 	.setAccessToken(MAPBOX_ACCESS_TOKEN)
-	.setLocation("White House")
+	.setLocation("The White House")
 	.setProximity(longitude, latitude)
 	.build();
 ```
