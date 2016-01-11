@@ -142,4 +142,8 @@ public class GeocoderFeature {
         return address;
     }
 
+    @Override
+    public String toString() {
+        return getPlaceName();
+    }
 }
