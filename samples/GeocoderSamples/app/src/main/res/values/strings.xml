@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Geocoder Samples</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="toast_settings">These are not the settings you are looking for.</string>
+    <string name="nav_item_forward">Forward</string>
+    <string name="nav_item_reverse">Reverse</string>
+    <string name="nav_header_title">Samples</string>
+    <string name="nav_header_subtitle">Mapbox Geocoder</string>
+    <string name="activity_reverse">Reverse Geocoder</string>
+    <string name="textview_intro">Find places of interest around the world:</string>
+    <string name="button_clear">Start over</string>
+</resources>
