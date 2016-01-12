@@ -1,3 +1,5 @@
+[![Build Status](https://www.bitrise.io/app/3d3b6f8bee5f91a7.svg?token=rGXK_UEmSffrdjTLeig5Uw&branch=master)](https://www.bitrise.io/app/3d3b6f8bee5f91a7)
+
 # Mapbox geocoder client for Android
 
 [Mapbox Geocoder](https://www.mapbox.com/developers/api/geocoding) client for Android.
@@ -5,12 +7,40 @@
 This library is also a full drop-in replacement for the standard Android
 [Geocoder](http://developer.android.com/reference/android/location/Geocoder.html).
 
+![Screenshot](https://raw.githubusercontent.com/mapbox/mapbox-directions-android/master/screenshot.png?token=AAAbNIrfSwudsPYrJL6ZTkW_aCde1-edks5WmCjCwA%3D%3D)
+
 ## Installation
 
-For now, compile the `lib` module in the `geocoder` folder and include the
-resulting `.aar` file in your project as a new module.
+We recommend installing with Gradle. This will automatically install the necessary dependencies and pull the library binaries from the Mapbox Android repository on Maven Central.
 
-Soon, you'll be able to download the latest version from Maven.
+To install the current _stable version_ add this to your `build.gradle`:
+
+```
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile ('com.mapbox.mapboxsdk:mapbox-android-geocoder:1.0.0@aar'){
+        transitive=true
+    }
+}
+```
+
+To install the current _SNAPSHOT_ version add this to your `build.gradle`:
+
+```
+repositories {
+    mavenCentral()
+    maven { url "http://oss.sonatype.org/content/repositories/snapshots/" }
+}
+
+dependencies {
+    compile ('com.mapbox.mapboxsdk:mapbox-android-geocoder:1.1.0-SNAPSHOT@aar'){
+        transitive=true
+    }
+}
+```
 
 ## Usage
 
@@ -50,6 +80,16 @@ Or an asynchronous request (you need to provide your own `Callback<GeocoderRespo
 ```
 client.enqueue(callback)
 ```
+
+### Samples
+
+See the `samples` folder for two complete apps that implement the Geocoder library:
+
+1. `LocationAddress` shows how to replace the stock Android geocoder with the Mapbox geocoder library.
+
+2. `GeocoderSamples` includes both forward and reverse geocoder activities, including code to implement an autocomplete widget.
+
+Both projects require that you supply your own `MAPBOX_ACCESS_TOKEN`.
 
 ## Android Geocoder drop-in replacement
 
@@ -92,3 +132,10 @@ You can see the full code for this app in the `samples/LocationAddress` folder.
 Note that, unlike the Android implementation, we don't have any use for the
 `Context` in the constructor and you can omit it (passing `null`) when
 creating a new instance of `AndroidGeocoder`.
+
+## Autocomplete widget
+
+If you want to implement an autocomplete widget like the one pictured above,
+check the [Geocoder Samples](https://github.com/mapbox/mapbox-geocoder-android/tree/master/samples/GeocoderSamples) folder.
+The `MainActivity` shows how to implement a `GeocoderAdapter` than you could pass to an Android `AutoCompleteTextView`
+to create a geocoder autocomplete widget.
