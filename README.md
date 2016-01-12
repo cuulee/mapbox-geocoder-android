@@ -7,7 +7,7 @@
 This library is also a full drop-in replacement for the standard Android
 [Geocoder](http://developer.android.com/reference/android/location/Geocoder.html).
 
-![Screenshot](https://raw.githubusercontent.com/mapbox/mapbox-directions-android/master/screenshot.png?token=AAAbNIrfSwudsPYrJL6ZTkW_aCde1-edks5WmCjCwA%3D%3D)
+![Screenshot](https://raw.githubusercontent.com/mapbox/mapbox-geocoder-android/master/autocomplete.gif)
 
 ## Installation
 
@@ -81,16 +81,6 @@ Or an asynchronous request (you need to provide your own `Callback<GeocoderRespo
 client.enqueue(callback)
 ```
 
-### Samples
-
-See the `samples` folder for two complete apps that implement the Geocoder library:
-
-1. `LocationAddress` shows how to replace the stock Android geocoder with the Mapbox geocoder library.
-
-2. `GeocoderSamples` includes both forward and reverse geocoder activities, including code to implement an autocomplete widget.
-
-Both projects require that you supply your own `MAPBOX_ACCESS_TOKEN`.
-
 ## Android Geocoder drop-in replacement
 
 If your app is currently using the standard Android Geocoder, you can simply switch to Mapbox
@@ -139,3 +129,13 @@ If you want to implement an autocomplete widget like the one pictured above,
 check the [Geocoder Samples](https://github.com/mapbox/mapbox-geocoder-android/tree/master/samples/GeocoderSamples) folder.
 The `MainActivity` shows how to implement a `GeocoderAdapter` than you could pass to an Android `AutoCompleteTextView`
 to create a geocoder autocomplete widget.
+
+## Sample Apps
+
+See the `samples` folder for two complete apps that implement the Geocoder library:
+
+1. `LocationAddress` shows how to replace the stock Android geocoder with the Mapbox geocoder library.
+
+2. `GeocoderSamples` includes both forward and reverse geocoder activities, including code to implement an autocomplete widget.
+
+Both projects require that you supply your own `MAPBOX_ACCESS_TOKEN`.
