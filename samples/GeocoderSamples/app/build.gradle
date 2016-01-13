@@ -26,7 +26,7 @@ dependencies {
     compile 'com.android.support:design:23.1.1'
 
     // Geocoder library
-    compile ('com.mapbox.mapboxsdk:mapbox-android-geocoder:1.0.0-SNAPSHOT@aar'){
+    compile ('com.mapbox.mapboxsdk:mapbox-android-geocoder:1.1.0-SNAPSHOT@aar'){
         transitive=true
     }
 

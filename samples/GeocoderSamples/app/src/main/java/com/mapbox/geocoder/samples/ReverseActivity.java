@@ -33,7 +33,7 @@ public class ReverseActivity extends AppCompatActivity {
         setContentView(R.layout.activity_reverse);
 
         textView = (TextView) findViewById(R.id.message);
-        setMessage("Tap the map to start.");
+        setMessage("Tap the map to trigger the reverse geocoder.");
 
         LatLng dupontCircle = new LatLng(38.90962, -77.04341);
 
