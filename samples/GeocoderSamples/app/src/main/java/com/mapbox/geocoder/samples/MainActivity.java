@@ -1,6 +1,7 @@
 package com.mapbox.geocoder.samples;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -11,16 +12,26 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
-import android.widget.Button;
 import android.widget.Toast;
+
+import com.mapbox.geocoder.service.models.GeocoderFeature;
+import com.mapbox.mapboxsdk.annotations.MarkerOptions;
+import com.mapbox.mapboxsdk.camera.CameraPosition;
+import com.mapbox.mapboxsdk.camera.CameraUpdateFactory;
+import com.mapbox.mapboxsdk.constants.Style;
+import com.mapbox.mapboxsdk.geometry.LatLng;
+import com.mapbox.mapboxsdk.views.MapView;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private static final String LOG_TAG = "MainActivity";
 
+    private MapView mapView;
     private AutoCompleteTextView autocomplete;
 
     @Override
@@ -39,19 +50,91 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        // Map
+        mapView = (MapView) findViewById(R.id.mapview);
+        mapView.setAccessToken(Constants.MAPBOX_ACCESS_TOKEN);
+        mapView.setStyleUrl(Style.MAPBOX_STREETS);
+        mapView.onCreate(savedInstanceState);
+
         // Custom adapter
-        GeocoderAdapter adapter = new GeocoderAdapter(this);
+        final GeocoderAdapter adapter = new GeocoderAdapter(this);
         autocomplete = (AutoCompleteTextView) findViewById(R.id.query);
         autocomplete.setAdapter(adapter);
-
-        // Clear the autocomplete
-        Button clearButton = (Button) findViewById(R.id.button_clear);
-        clearButton.setOnClickListener(new View.OnClickListener() {
+        autocomplete.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onClick(View v) {
-                autocomplete.setText("");
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                GeocoderFeature result = adapter.getItem(position);
+                updateMap(result.getLatitude(), result.getLongitude());
             }
         });
+
+        // Add clear button to autocomplete
+        final Drawable imgClearButton = getResources().getDrawable(R.drawable.my_location_stale);
+        autocomplete.setCompoundDrawablesWithIntrinsicBounds(null, null, imgClearButton, null);
+        autocomplete.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                AutoCompleteTextView et = (AutoCompleteTextView) v;
+                if (et.getCompoundDrawables()[2] == null)
+                    return false;
+                if (event.getAction() != MotionEvent.ACTION_UP)
+                    return false;
+                if (event.getX() > et.getWidth() - et.getPaddingRight() - imgClearButton.getIntrinsicWidth()) {
+                    autocomplete.setText("");
+                }
+                return false;
+            }
+        });
+    }
+
+    private void updateMap(double latitude, double longitude) {
+        // Marker
+        mapView.addMarker(new MarkerOptions()
+                .position(new LatLng(latitude, longitude))
+                .title("Geocoder result"));
+
+        // Animate map
+        CameraPosition cameraPosition = new CameraPosition.Builder()
+                .target(new LatLng(latitude, longitude))
+                .zoom(13)
+                .build();
+        mapView.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition), 5000, null);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mapView.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mapView.onStop();
+    }
+
+    @Override
+    public void onPause()  {
+        super.onPause();
+        mapView.onPause();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mapView.onResume();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mapView.onDestroy();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        mapView.onSaveInstanceState(outState);
     }
 
     @Override
