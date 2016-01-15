@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -50,20 +51,16 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        // Map
-        mapView = (MapView) findViewById(R.id.mapview);
-        mapView.setAccessToken(Constants.MAPBOX_ACCESS_TOKEN);
-        mapView.setStyleUrl(Style.MAPBOX_STREETS);
-        mapView.onCreate(savedInstanceState);
-
         // Custom adapter
         final GeocoderAdapter adapter = new GeocoderAdapter(this);
         autocomplete = (AutoCompleteTextView) findViewById(R.id.query);
+        autocomplete.setLines(1);
         autocomplete.setAdapter(adapter);
         autocomplete.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 GeocoderFeature result = adapter.getItem(position);
+                autocomplete.setText(result.getText());
                 updateMap(result.getLatitude(), result.getLongitude());
             }
         });
@@ -85,6 +82,12 @@ public class MainActivity extends AppCompatActivity
                 return false;
             }
         });
+
+        // Map
+        mapView = (MapView) findViewById(R.id.mapview);
+        mapView.setAccessToken(Constants.MAPBOX_ACCESS_TOKEN);
+        mapView.setStyleUrl(Style.MAPBOX_STREETS);
+        mapView.onCreate(savedInstanceState);
     }
 
     private void updateMap(double latitude, double longitude) {

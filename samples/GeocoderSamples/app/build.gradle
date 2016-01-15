@@ -32,6 +32,6 @@ dependencies {
 
     // Mapbox SDK
     compile('com.mapbox.mapboxsdk:mapbox-android-sdk:3.0.0@aar') {
-        transitive = true
+        transitive=true
     }
 }

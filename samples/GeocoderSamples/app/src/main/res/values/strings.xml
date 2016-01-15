@@ -11,6 +11,4 @@
     <string name="nav_header_title">Samples</string>
     <string name="nav_header_subtitle">Mapbox Geocoder</string>
     <string name="activity_reverse">Reverse Geocoder</string>
-    <string name="textview_intro">Find places of interest around the world:</string>
-    <string name="button_clear">Start over</string>
 </resources>
